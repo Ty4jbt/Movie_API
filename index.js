@@ -6,9 +6,9 @@ const express = require('express'),
     cors = require('cors'),
     { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'https://boemyflix.herokuapp.com/'];
 
-app.use(cors(
+app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
         if(allowedOrigins.indexOf(origin) === -1) {
@@ -17,7 +17,7 @@ app.use(cors(
         }
         return callback(null, true);
     }
-));
+}));
 
 app.use(express.json());
 
@@ -209,13 +209,13 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 
 // Listens for requests
 app.listen(Config.PORT,'0.0.0.0', () => {
-    console.log('Listening on Port' + Config.PORT);
+    console.log('Listening on Port ' + Config.PORT);
 });
 
 app.use(express.static('public'));
 
 const mongoose = require('mongoose'),
-    { DB_CONNECT } = require('./config'),
+    // { DB_CONNECT } = require('./config'),
     Models = require('./models.js'),
     Movies = Models.Movie,
     Users = Models.User;
