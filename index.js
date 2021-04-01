@@ -12,16 +12,7 @@ const express = require('express'),
 
 let allowedOrigins = ['http://localhost:8080', 'https://boemyflix.herokuapp.com/'];
 
-app.use(cors({
-    origin: (origin, callback) => {
-        if(!origin) return callback(null, true);
-        if(allowedOrigins.indexOf(origin) === -1) {
-            let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-            return callback(new Error(message ), false);
-        }
-        return callback(null, true);
-    }
-}));
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 app.use(morgan('common'));
@@ -218,3 +209,13 @@ app.listen(Config.PORT, '0.0.0.0', () => {
 
 // mongoose.connect(Config.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true});
 
+// cors inner {
+//     origin: (origin, callback) => {
+//         if(!origin) return callback(null, true);
+//         if(allowedOrigins.indexOf(origin) === -1) {
+//             let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+//             return callback(new Error(message ), false);
+//         }
+//         return callback(null, true);
+//     }
+// }
