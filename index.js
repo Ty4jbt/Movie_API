@@ -102,13 +102,15 @@ app.post('/users', [
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()
     ], (req, res) => {
+        console.log('Post Users hit');
     let errors = validationResult(req);
+    console.log(errors);
     
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array()});
     }
 
-    let hashedPassword = Users.hashedPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
         .then((user) => {
             if (user) {
