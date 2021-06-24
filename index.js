@@ -22,7 +22,7 @@ let allowedOrigins = ['http://localhost:8080', 'https://boemyflix.herokuapp.com/
 //         return callback(null, true);
 //     }
 // }));
-app.use(cors())
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 app.use(morgan('common'));
@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
     res.status(200).send('Welcome to the myFlix API!');
 });
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
     Movies.find()
         .then((movies) => {
             res.status(200).json(movies);
