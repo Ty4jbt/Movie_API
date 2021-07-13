@@ -149,15 +149,24 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 app.put('/users/:Username' , passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    let object = {};
+    if (req.body.Username) {
+        object.Username = req.body.Username
+    }
+    if (req.body.Password) {
+        let hashedPassword = Users.hashPassword(req.body.Password);
+        object.Password = hashedPassword
+    }
+    if (req.body.Email) {
+        object.Email = req.body.Email
+    }
+    if (req.body.Birthday) {
+        object.Birthday = req.body.Birthday
+    }
     Users.findOneAndUpdate({Username: req.params.Username},
         {
-            $set:
-            {
-                Username: req.body.Username,
-                Password: req.body.Password,
-                Email: req.body.Email,
-                Birthday: req.body.Birthday
-            }
+            $set: object
         },
         { new: true})
         .then((updateUser) => {
