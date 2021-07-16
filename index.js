@@ -10,7 +10,7 @@ const express = require('express'),
     Movies = Models.Movie,
     Users = Models.User;
 
-let allowedOrigins = ['http://localhost:8080', 'https://boemyflix.herokuapp.com/'];
+let allowedOrigins = ['http://localhost:8080', 'https://boemyflix.herokuapp.com/', 'http://localhost:1234'];
 
 // app.use(cors({
 //     origin: (origin, callback) => {
